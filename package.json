@@ -1,0 +1,20 @@
+{
+  "name": "tinygpt-v2",
+  "version": "1.0.0",
+  "description": "tinygpt full-stack chat backend",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "better-sqlite3": "^11.5.0",
+    "express": "^4.21.1",
+    "express-session": "^1.18.1",
+    "nodemailer": "^10.1.7"
+  },
+  "allowScripts": {
+    "bcrypt@5.1.1": true,
+    "better-sqlite3@11.10.0": true
+  }
+}

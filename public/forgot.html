@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Forgot Password · tinygpt v2</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #0d1117; --panel: #161b22; --border: #30363d;
+    --text: #e6edf3; --muted: #8b949e; --accent: #58a6ff;
+    --accent-strong: #1f6feb; --red: #f85149;
+  }
+  html, body { height: 100%; }
+  body {
+    background: var(--bg); color: var(--text);
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    display: grid; place-items: center; padding: 20px;
+  }
+  .card {
+    width: 100%; max-width: 380px;
+    background: var(--panel); border: 1px solid var(--border);
+    border-radius: 14px; padding: 32px 30px;
+  }
+  .logo-row { display: flex; align-items: center; gap: 12px; margin-bottom: 6px; }
+  .logo {
+    width: 40px; height: 40px; border-radius: 10px;
+    background: linear-gradient(135deg, var(--accent-strong), #a371f7);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 16px; color: #fff;
+  }
+  h1 { font-size: 20px; font-weight: 600; }
+  h1 span { color: var(--accent); }
+  .sub { color: var(--muted); font-size: 13px; margin-bottom: 22px; }
+  label { display: block; font-size: 12px; color: var(--muted); margin-bottom: 6px; font-weight: 600; }
+  input {
+    width: 100%; background: var(--bg); border: 1px solid var(--border);
+    color: var(--text); border-radius: 8px; padding: 11px 12px;
+    font-size: 14px; outline: none; margin-bottom: 14px;
+    transition: border-color 0.15s;
+  }
+  input:focus { border-color: var(--accent); }
+  button.submit {
+    width: 100%; background: #238636; border: none;
+    color: #fff; font-size: 14px; font-weight: 600;
+    padding: 11px; border-radius: 8px; cursor: pointer;
+    margin-top: 4px; transition: background 0.15s;
+  }
+  button.submit:hover { background: #2ea043; }
+  button.submit:disabled { opacity: 0.6; cursor: not-allowed; }
+  #msg {
+    display: none; background: rgba(63,185,80,0.1);
+    border: 1px solid rgba(63,185,80,0.4); color: #3fb950;
+    font-size: 13px; padding: 9px 12px; border-radius: 8px; margin-bottom: 14px;
+  }
+  #err {
+    display: none; background: rgba(248,81,73,0.1);
+    border: 1px solid rgba(248,81,73,0.4); color: var(--red);
+    font-size: 13px; padding: 9px 12px; border-radius: 8px; margin-bottom: 14px;
+  }
+  .foot { text-align: center; font-size: 12px; color: var(--muted); margin-top: 18px; }
+  .foot a { color: var(--accent); text-decoration: none; }
+  .foot a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="logo-row">
+      <div class="logo">tG</div>
+      <h1>Forgot <span>password?</span></h1>
+    </div>
+    <p class="sub">Enter your username and we'll email you a reset link (valid for 1 hour).</p>
+
+    <div id="msg"></div>
+    <div id="err"></div>
+
+    <form id="form">
+      <label for="username">Username</label>
+      <input id="username" autocomplete="username" required maxlength="32">
+      <button class="submit" id="submit" type="submit">Send reset link</button>
+    </form>
+
+    <p class="foot"><a href="/login.html">&larr; Back to login</a></p>
+  </div>
+
+<script>
+const form = document.getElementById('form');
+const msg = document.getElementById('msg');
+const err = document.getElementById('err');
+const submit = document.getElementById('submit');
+
+form.onsubmit = async e => {
+  e.preventDefault();
+  msg.style.display = 'none';
+  err.style.display = 'none';
+  submit.disabled = true;
+  try {
+    const res = await fetch('/api/forgot-password', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username: document.getElementById('username').value.trim() })
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Request failed');
+    msg.textContent = data.message;
+    msg.style.display = 'block';
+    form.reset();
+  } catch (ex) {
+    err.textContent = ex.message;
+    err.style.display = 'block';
+  }
+  submit.disabled = false;
+};
+</script>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy · tinygpt v2</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #0d1117; --panel: #161b22; --border: #30363d;
+    --text: #e6edf3; --muted: #8b949e; --accent: #58a6ff;
+  }
+  body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; line-height: 1.65; }
+  header {
+    border-bottom: 1px solid var(--border); background: var(--panel);
+    padding: 14px 24px; display: flex; align-items: center; gap: 12px;
+    position: sticky; top: 0;
+  }
+  .logo {
+    width: 30px; height: 30px; border-radius: 8px;
+    background: linear-gradient(135deg, #1f6feb, #a371f7);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 13px; color: #fff;
+  }
+  header b { font-size: 15px; }
+  header b span { color: var(--accent); }
+  header nav { margin-left: auto; font-size: 13px; }
+  header nav a { color: var(--accent); text-decoration: none; margin-left: 16px; }
+  header nav a:hover { text-decoration: underline; }
+  main { max-width: 760px; margin: 0 auto; padding: 36px 24px 64px; }
+  h1 { font-size: 26px; margin-bottom: 6px; }
+  .updated { color: var(--muted); font-size: 13px; margin-bottom: 28px; }
+  h2 { font-size: 17px; color: var(--accent); margin: 28px 0 8px; }
+  p, li { color: #c9d1d9; font-size: 14.5px; margin-bottom: 10px; }
+  ul { padding-left: 22px; margin-bottom: 12px; }
+  li { margin-bottom: 6px; }
+  .notice {
+    background: var(--panel); border: 1px solid var(--border);
+    border-left: 3px solid var(--accent); border-radius: 8px;
+    padding: 12px 16px; font-size: 13.5px; color: var(--muted); margin: 18px 0;
+  }
+  table { border-collapse: collapse; width: 100%; margin: 12px 0 18px; }
+  th, td { border: 1px solid var(--border); padding: 8px 12px; font-size: 13.5px; text-align: left; }
+  th { background: var(--panel); color: var(--text); }
+  td { color: #c9d1d9; }
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">tG</div>
+  <b>tinygpt <span>v2</span></b>
+  <nav><a href="/terms">Terms</a><a href="/privacy">Privacy</a><a href="/login.html">Back to app</a></nav>
+</header>
+<main>
+  <h1>Privacy Policy</h1>
+  <p class="updated">Last updated: October 18, 2026</p>
+
+  <div class="notice">
+    tinygpt v2 is designed to run locally. Your account data and chats are stored in a SQLite
+    database on this machine, and AI inference runs through Ollama on this machine.
+    Nothing is uploaded to third-party servers by the application itself.
+  </div>
+
+  <h2>1. Information We Collect</h2>
+  <table>
+    <tr><th>Data</th><th>Purpose</th><th>Stored</th></tr>
+    <tr><td>Username</td><td>Identify your account</td><td>Local SQLite</td></tr>
+    <tr><td>Password</td><td>Authenticate you (stored only as a bcrypt hash)</td><td>Local SQLite</td></tr>
+    <tr><td>Email address (optional)</td><td>Send password-reset emails</td><td>Local SQLite</td></tr>
+    <tr><td>Chat messages</td><td>Persist your conversations</td><td>Local SQLite</td></tr>
+    <tr><td>Login dates &amp; streak</td><td>Show your usage calendar</td><td>Local SQLite</td></tr>
+    <tr><td>Password reset tokens</td><td>Secure account recovery (expire after 1 hour)</td><td>Local SQLite</td></tr>
+  </table>
+
+  <h2>2. How We Use Your Information</h2>
+  <ul>
+    <li>To provide account login, logout, and session management;</li>
+    <li>To store and display your chat history;</li>
+    <li>To send transactional emails (currently only password resets);</li>
+    <li>To maintain your login streak and calendar.</li>
+  </ul>
+
+  <h2>3. What We Do Not Do</h2>
+  <ul>
+    <li>We do not sell, rent, or trade your personal information;</li>
+    <li>We do not use your chats for advertising or model training;</li>
+    <li>We do not send analytics or telemetry;</li>
+    <li>We do not require more personal information than needed to run the app.</li>
+  </ul>
+
+  <h2>4. AI Processing</h2>
+  <p>Your prompts are sent to a locally running Ollama instance to generate responses. On a default setup, prompt data never leaves your machine. If you reconfigure the app to point at a remote model endpoint, that endpoint's privacy practices apply to prompt data.</p>
+
+  <h2>5. Email</h2>
+  <p>Password-reset emails are sent through an SMTP provider. In development mode, emails go through Ethereal (a disposable test mailbox) and are never delivered to a real inbox. Email is used only for account recovery.</p>
+
+  <h2>6. Data Retention</h2>
+  <p>We retain account and chat data for as long as your account exists. You can delete individual chats at any time from the sidebar. To remove all of your data, delete your account or remove the local <code style="background:var(--panel);padding:1px 5px;border-radius:4px">tinygpt.db</code> file.</p>
+
+  <h2>7. Security</h2>
+  <ul>
+    <li>Passwords are hashed with bcrypt (10 rounds); plaintext passwords are never stored;</li>
+    <li>Reset tokens are 256-bit random values, stored only as SHA-256 hashes, and expire after 1 hour;</li>
+    <li>Sessions use httpOnly cookies and are regenerated at login;</li>
+    <li>API endpoints reject unauthenticated requests.</li>
+  </ul>
+
+  <h2>8. Children's Privacy</h2>
+  <p>The Service is not directed to children under 13, and we do not knowingly collect personal information from them.</p>
+
+  <h2>9. Changes to This Policy</h2>
+  <p>We may update this Privacy Policy from time to time. The "Last updated" date reflects the latest revision.</p>
+
+  <h2>10. Contact</h2>
+  <p>Questions about this Privacy Policy may be raised with the operator of this local deployment.</p>
+</main>
+</body>
+</html>
